@@ -27,6 +27,7 @@ export default function Mindshift() {
   const [generation, setGeneration] = useState("");
   const [userInput, setInput] = useState("");
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // get the userid from auth
   useEffect(() => {
@@ -56,6 +57,7 @@ export default function Mindshift() {
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsGenerating(true);
     //fetch from the auth
     const passage = new Passage(process.env.PASSAGE_APP_ID || "");
     const user = passage.getCurrentUser();
@@ -81,7 +83,7 @@ export default function Mindshift() {
         created: new Date(),
       };
       setPosts((prevPosts) => [...(prevPosts || []), newPost]);
-
+      setIsGenerating(false);
       toast.success(`post created`, { duration: 2000 });
       router.push("/congrats");
     } catch (error) {
@@ -124,8 +126,9 @@ export default function Mindshift() {
           <button
             type="submit"
             className="h-[56px] w-[162px] bg-[#C2A58E] text-[#614F3F] rounded-2xl text-lg font-semibold "
+            disabled={isGenerating}
           >
-            Submit
+            {isGenerating ? "Revising..." : "Submit"}
           </button>
         </form>
 
