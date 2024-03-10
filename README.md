@@ -1,10 +1,14 @@
-# CapyLog: Transforming Self-Talk, One Positive Note at a Time
+# CapyLog: Transforming Mindsets, One Entry at a Time
 
 <p align="center">
   <img src="https://github.com/YuluDuan/cmd-f-hackathon/blob/main/public/assets/capy.svg?raw=true" alt="Capy" width=250/>
 </p>
 
-Welcome to, a journaling application designed to turn your negative self-talk into positive affirmations. In an era where mental health is as crucial as physical well-being, CapyLog stands out by offering an innovative solution to foster a healthier mind. By leveraging advanced AI technology, CapyLog not only helps you reframe negative thoughts but also provides a friendly capybara chatbot companion to talk to, making your journey towards positive self-talk engaging and comforting.
+Welcome to **CapyLog**, a journaling application designed to reframe negative thinking into a more positive outlook. You may know someone or have caught yourself in ruminating thoughts such as, “Why are people always ignoring me?.” Instead, try rephrasing that sentence to, “Some of my coworkers don’t seem to listen when I’m speaking. I should try using a different tone when speaking with them next time.” Humans tend to give greater weight to negative information compared to positive, which can sometimes lead us to overlook its impact on our well-being. CapyLog provides an alternative perspective to one’s recollection of personal events and seeks to retrain your brain through the use of **cognitive reframing**.
+
+
+
+By leveraging advanced AI technology, CapyLog not only helps you **reframe negative thoughts** through the use of daily journal entries but also provides a friendly **Capybara chatbot companion** to talk to. With CapyLog, users are prompted to be more mindful of the words they use and how they communicate with others on a **day-to-day basis**.
 
 ## 🌟 Mission
 In line with the **🩺 HealthTech for All** track, our mission is to Innovate for Inclusive Healthcare. CapyLog is our answer to addressing disparities in mental healthcare accessibility and quality. Our goal is to challenge biases, promote a sense of belonging, and pave the way for a more inclusive and equitable healthcare system, starting with mental health.
