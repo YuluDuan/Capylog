@@ -47,10 +47,7 @@ const CongratsPage = (props: Props) => {
   return (
     <div className="flex flex-col gap-5 justify-center items-center py-10">
       <h1 className="text-2xl text-[#614F3F] font-bold">CapyLog</h1>
-      <video controls className="w-[300px] h-[300px]">
-        <source src="/assets/Capybara.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        <img src="/assets/Capybara.gif" className="w-[300px] h-[300px]"/>
       <div className="flex gap-5 items-center">
         <Image
           src="/assets/yellow.svg"
