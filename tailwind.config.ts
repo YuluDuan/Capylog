@@ -11,7 +11,15 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+            "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      colors: {
+        main: {
+          light: "#FFFAF6",
+          box: "#B18E71",
+          DEFAULT: "#EDE0D7",
+          dark: "#614F3F"
+        }
       },
     },
   },
