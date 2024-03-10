@@ -101,7 +101,7 @@ export default function Mindshift() {
       <h1 className="text-2xl text-[#614F3F] font-bold">CapyLog</h1>
       <Conversation />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 items-start">
         <p className="text-[#B18E71] font-semibold">{formatDate(today)}</p>
         <form
           onSubmit={handleFormSubmit}
