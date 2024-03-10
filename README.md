@@ -33,7 +33,7 @@ To get started with CapyLog, follow these simple steps:
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourgithub/capylog.git
+git clone https://github.com/YuluDuan/cmd-f-hackathon-capylog.git
 ```
 
 2. **Install dependencies:**
