@@ -8,7 +8,7 @@ import {toast} from "react-hot-toast";
 import PostsBoard from "@/components/PostBoard";
 import Conversation from "@/components/Conversation";
 import { useRouter } from "next/navigation";
-import {Passage} from "@passageidentity/passage-js";
+import { Passage } from "@passageidentity/passage-js";
 
 interface PostType {
   id: string;
@@ -29,10 +29,10 @@ export default function Mindshift() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const passage = new Passage(process.env.PASSAGE_APP_ID||"");
+        const passage = new Passage(process.env.PASSAGE_APP_ID || "");
         const user = passage.getCurrentUser();
         const userInfo = await user.userInfo();
-        const userId = userInfo?.id || ""
+        const userId = userInfo?.id || "";
         const posts = await readPostsFromDatabase(userId);
         setPosts(posts);
       } catch (error) {
@@ -58,7 +58,7 @@ export default function Mindshift() {
     const passage = new Passage(process.env.PASSAGE_APP_ID || "");
     const user = passage.getCurrentUser();
     const userInfo = await user.userInfo();
-    const userId = userInfo?.id || ""
+    const userId = userInfo?.id || "";
 
     const id = uuidv4();
     try {
@@ -129,7 +129,7 @@ export default function Mindshift() {
             className="bg-[#FFFFFF] h-[186px] w-[800px] rounded-md focus:outline-none py-2 px-5 resize-none overflow-y-auto"
             value={userInput}
             onChange={handleUserChange}
-            placeholder="Did you take a moment today to do something kind for yourself? Write about a small act of self-care or self-appreciation that you embraced."
+            placeholder="Start journaling here!"
           />
           <button
             type="submit"

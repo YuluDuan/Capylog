@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   // Extract the `prompt` from the body of the request
   const { messages } = await req.json();
   const chatHistory = messages.map((message: any) => ({
-    message: message.content,
+    message: `Pretend you are the cute capybara to answer user's question: ${message.content}`,
     role: toCohereRole(message.role),
   }));
   const lastMessage = chatHistory.pop();
