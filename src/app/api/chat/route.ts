@@ -38,14 +38,17 @@ export async function POST(req: Request) {
  
   const stream = new ReadableStream({
     async start(controller) {
+      const encoder = new TextEncoder();
       for await (const event of response) {
         if (event.eventType === 'text-generation') {
-          controller.enqueue(event.text);
+          controller.enqueue(encoder.encode(event.text));
         }
       }
       controller.close();
     },
   });
+
+  
  
   return new Response(stream);
 }

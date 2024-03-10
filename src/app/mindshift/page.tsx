@@ -7,7 +7,7 @@ import {v4 as uuidv4} from "uuid";
 import {toast} from "react-hot-toast";
 import PostsBoard from "@/components/PostBoard";
 import Conversation from "@/components/Conversation";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import {Passage} from "@passageidentity/passage-js";
 
 interface PostType {
