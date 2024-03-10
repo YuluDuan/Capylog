@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import PostsBoard from "@/components/PostBoard";
 import Conversation from "@/components/Conversation";
 import { useRouter } from "next/navigation";
+import {Passage} from "@passageidentity/passage-js";
 
 interface PostType {
   id: string;
@@ -28,10 +29,13 @@ export default function Mindshift() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   // get the userid from auth
-  const userId = "1";
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        const passage = new Passage(process.env.PASSAGE_APP_ID);
+        const user = passage.getCurrentUser();
+        const userInfo = await user.userInfo();
+        const userId = userInfo?.id || ""
         const posts = await readPostsFromDatabase(userId);
         setPosts(posts);
       } catch (error) {
@@ -53,7 +57,11 @@ export default function Mindshift() {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //fetch from the auth
-    const userId = "1";
+    const passage = new Passage(process.env.PASSAGE_APP_ID);
+    const user = passage.getCurrentUser();
+    const userInfo = await user.userInfo();
+    const userId = userInfo?.id || ""
+
     const id = uuidv4();
     try {
       const res = await generateResponse(userInput);
