@@ -41,21 +41,22 @@ function MainPage () {
                     transition: 'visibility 0.2s ease', // Try adding ease to the end of this string and see if you like it better
                     visibility: show ? 'visible' : 'hidden'
                 }}>
-                    <div className="flex flex-row">
-                        <p> First name:
-                            <input type="text" className="mx-2 my-3 bg-main-light pl-1 pr-3 py-1 rounded-md"/>
-                        </p>
-                        <p> Last name:
-                            <input type="text" className="mx-2 my-3 bg-main-light pl-1 pr-3 py-1 rounded-md"/>
-                        </p>
-                    </div>
-                    <p> Password:
-                        <input type="text" className="mx-5 my-3 bg-main-light pl-1 pr-7 py-1 rounded-md"/>
-                    </p>
+                    {/*<div className="flex flex-row">*/}
+                    {/*    <p> First name:*/}
+                    {/*        <input type="text" className="mx-2 my-3 bg-main-light pl-1 pr-3 py-1 rounded-md"/>*/}
+                    {/*    </p>*/}
+                    {/*    <p> Last name:*/}
+                    {/*        <input type="text" className="mx-2 my-3 bg-main-light pl-1 pr-3 py-1 rounded-md"/>*/}
+                    {/*    </p>*/}
+                    {/*</div>*/}
+                    {/*<p> Password:*/}
+                    {/*    <input type="text" className="mx-5 my-3 bg-main-light pl-1 pr-7 py-1 rounded-md"/>*/}
+                    {/*</p>*/}
                     <button
-                        className={`${inter.className} my-5 ml-28 text-main-dark bg-main-box w-16 rounded-sm`}> Login
+                        className={`${inter.className} my-5 ml-28 text-main-dark bg-main-box w-16 rounded-sm`}>
+                        <Link href="/login">Log In</Link>
                     </button>
-                    <p>Not a member yet? <Link href="" className={`${inter.className} pl-28 text-main-dark pt-6`}> Sign
+                    <p>Not a member yet? <Link href="/signup" className={`${inter.className} pl-28 text-main-dark pt-6`}> Sign
                         up </Link></p>
                 </div>
             </div>
