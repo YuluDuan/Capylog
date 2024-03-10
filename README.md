@@ -4,7 +4,7 @@
   <img src="https://github.com/YuluDuan/cmd-f-hackathon/blob/main/public/assets/capy.svg?raw=true" alt="Capy" width=250/>
 </p>
 
-Welcome to CapyLog, a journaling application designed to turn your negative self-talk into positive affirmations. In an era where mental health is as crucial as physical well-being, CapyLog stands out by offering an innovative solution to foster a healthier mind. By leveraging advanced AI technology, CapyLog not only helps you reframe negative thoughts but also provides a friendly capybara chatbot companion to talk to, making your journey towards positive self-talk engaging and comforting.
+Welcome to, a journaling application designed to turn your negative self-talk into positive affirmations. In an era where mental health is as crucial as physical well-being, CapyLog stands out by offering an innovative solution to foster a healthier mind. By leveraging advanced AI technology, CapyLog not only helps you reframe negative thoughts but also provides a friendly capybara chatbot companion to talk to, making your journey towards positive self-talk engaging and comforting.
 
 ## 🌟 Mission
 In line with the **🩺 HealthTech for All** track, our mission is to Innovate for Inclusive Healthcare. CapyLog is our answer to addressing disparities in mental healthcare accessibility and quality. Our goal is to challenge biases, promote a sense of belonging, and pave the way for a more inclusive and equitable healthcare system, starting with mental health.
