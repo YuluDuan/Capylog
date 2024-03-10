@@ -1,14 +1,10 @@
 "use client";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Image from "next/image";
-import { generateResponse } from "./generate";
-import {
-  readPostFromDatabase,
-  readPostsFromDatabase,
-  savePostToDatabase,
-} from "@/lib/api-controlers";
-import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-hot-toast";
+import {generateResponse} from "./generate";
+import {readPostsFromDatabase, savePostToDatabase,} from "@/lib/api-controlers";
+import {v4 as uuidv4} from "uuid";
+import {toast} from "react-hot-toast";
 import PostsBoard from "@/components/PostBoard";
 import Conversation from "@/components/Conversation";
 import { useRouter } from "next/navigation";
@@ -27,6 +23,7 @@ export default function Mindshift() {
   const [generation, setGeneration] = useState("");
   const [userInput, setInput] = useState("");
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // get the userid from auth
   useEffect(() => {
@@ -56,6 +53,7 @@ export default function Mindshift() {
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsGenerating(true);
     //fetch from the auth
     const passage = new Passage(process.env.PASSAGE_APP_ID || "");
     const user = passage.getCurrentUser();
@@ -81,7 +79,7 @@ export default function Mindshift() {
         created: new Date(),
       };
       setPosts((prevPosts) => [...(prevPosts || []), newPost]);
-
+      setIsGenerating(false);
       toast.success(`post created`, { duration: 2000 });
       router.push("/congrats");
     } catch (error) {
@@ -104,10 +102,22 @@ export default function Mindshift() {
     return date.toLocaleDateString(undefined, options);
   };
 
+  const shouldHaveReword = () => {
+    const post =  posts.find((post: any) => {
+      const postDate = new Date(post.createdAt)
+      const todayDate = new Date()
+      return postDate.getFullYear() === todayDate.getFullYear() &&
+          postDate.getMonth() === todayDate.getMonth() &&
+          postDate.getDate() === todayDate.getDate();
+    })
+
+    return !!post
+  }
+
   return (
     <div className="flex flex-col gap-5 justify-center items-center py-10">
       <h1 className="text-2xl text-[#614F3F] font-bold">CapyLog</h1>
-      <Conversation />
+      <Conversation haveReward={shouldHaveReword()}/>
 
       <div className="flex flex-col gap-2 items-start">
         <p className="text-[#B18E71] font-semibold">{formatDate(today)}</p>
@@ -124,8 +134,9 @@ export default function Mindshift() {
           <button
             type="submit"
             className="h-[56px] w-[162px] bg-[#C2A58E] text-[#614F3F] rounded-2xl text-lg font-semibold "
+            disabled={isGenerating}
           >
-            Submit
+            {isGenerating ? "Revising..." : "Submit"}
           </button>
         </form>
 
