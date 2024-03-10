@@ -1,42 +1,86 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { generateResponse } from "./generate";
-import { classifyResponse } from "./classify";
 import { useChat } from "ai/react";
+import {
+  readPostsFromDatabase,
+  savePostToDatabase,
+} from "@/lib/api-controlers";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-hot-toast";
+
+interface PostType {
+  id: string;
+  original_text: string;
+  revised_text: string;
+  userId: string;
+  created: Date;
+}
 
 export default function Mindshift() {
   const [generation, setGeneration] = useState("");
-  const [classification, setClassification] = useState("");
   const [userInput, setInput] = useState("");
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
+  const [posts, setPosts] = useState<PostType[]>();
+
+  // get the userid from auth
+  const userId = "1";
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const posts = await readPostsFromDatabase(userId);
+        setPosts(posts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [generation]);
 
   const getGeneration = (text: string) => {
     generateResponse(text).then((res) => setGeneration(res));
   };
 
-  const getClassification = () => {
-    classifyResponse("").then((res) => setClassification(res));
-  };
-
-  const handleUserChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleUserChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
   };
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     getGeneration(userInput);
-    getClassification();
+    //fetch from the auth
+    const userId = "1";
+    const id = uuidv4();
+
+    const newPost: PostType = {
+      id,
+      original_text: userInput,
+      revised_text: generation,
+      userId,
+      created: new Date(),
+    };
+    setPosts((prevPosts) => [...(prevPosts || []), newPost]);
+    try {
+      await savePostToDatabase({
+        id,
+        original_text: userInput,
+        revised_text: generation,
+        userId,
+      });
+      toast.success(`post created`, { duration: 2000 });
+    } catch (error) {
+      toast.error(`"Error while creating post`);
+    }
   };
 
   return (
     <>
-      <div>hello!</div>
       <form onSubmit={handleFormSubmit}>
-        <input type="text" value={userInput} onChange={handleUserChange} />
+        <textarea value={userInput} onChange={handleUserChange} />
         <button type="submit">Submit</button>
       </form>
       <div>response: {generation}</div>
-      <div>classify score: {classification}</div>
 
       <div className="p-4">
         <header className="text-center">
