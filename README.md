@@ -11,7 +11,7 @@ Welcome to **CapyLog**, a journaling application designed to reframe negative th
 By leveraging advanced AI technology, CapyLog not only helps you **reframe negative thoughts** through the use of daily journal entries but also provides a friendly **Capybara chatbot companion** to talk to. With CapyLog, users are prompted to be more mindful of the words they use and how they communicate with others on a **day-to-day basis**.
 
 ## 🌟 Mission
-In line with the **🩺 HealthTech for All** track, our mission is to Innovate for Inclusive Healthcare. CapyLog is our answer to addressing disparities in mental healthcare accessibility and quality. Our goal is to challenge biases, promote a sense of belonging, and pave the way for a more inclusive and equitable healthcare system, starting with mental health.
+In line with the **🩺 HealthTech for All** track, our mission is to promote a healthier mind for users experiencing ruminating thoughts, including but not limited to, those with anxiety, insomnia, low self-esteem, and depression.
 
 ## 🤖 Features
 - **AI-Powered Journaling:** Utilize the power of AI to transform negative entries into positive affirmations, encouraging a healthier mental dialogue.
