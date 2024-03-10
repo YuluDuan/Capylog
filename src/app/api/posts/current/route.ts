@@ -19,6 +19,7 @@ export const GET = async(req: Request) => {
         todayEnd.setDate(todayEnd.getDate() + 1); // Set end of the day to one day ahead
     
         const post = await Post.find({
+          creator: userId,
           createdAt: {
             $gte: todayStart,
             $lt: todayEnd,

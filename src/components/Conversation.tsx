@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
 import { useChat } from "ai/react";
 import Dialog from "./Dialog";
+import { useEffect, useState } from "react";
+import { readPostFromDatabase } from "@/lib/api-controlers";
 
 const Conversation = () => {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
@@ -13,6 +16,13 @@ const Conversation = () => {
           src={"/assets/capylog.svg"}
           alt="capylog logo"
         />
+
+        {/* <Image
+            height={250}
+            width={300}
+            src={"/assets/reward-capy.svg"}
+            alt="award capy"
+          /> */}
 
         <div className="flex flex-col h-[250px] w-[450px] relative items-start">
           <header className="text-center">

@@ -1,7 +1,9 @@
 "use client";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import Image from "next/image";
 import { generateResponse } from "./generate";
 import {
+  readPostFromDatabase,
   readPostsFromDatabase,
   savePostToDatabase,
 } from "@/lib/api-controlers";
@@ -40,9 +42,9 @@ export default function Mindshift() {
     fetchPosts();
   }, [generation]);
 
-  const getGeneration = (text: string) => {
-    generateResponse(text).then((res) => setGeneration(res));
-  };
+  // const getGeneration = (text: string) => {
+  //   generateResponse(text).then((res) => setGeneration(res));
+  // };
 
   const handleUserChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
@@ -50,37 +52,39 @@ export default function Mindshift() {
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    getGeneration(userInput);
     //fetch from the auth
     const userId = "1";
     const id = uuidv4();
-
-    const newPost: PostType = {
-      id,
-      original_text: userInput,
-      revised_text: generation,
-      userId,
-      created: new Date(),
-    };
-    setPosts((prevPosts) => [...(prevPosts || []), newPost]);
     try {
+      const res = await generateResponse(userInput);
+      setGeneration(res);
       await savePostToDatabase({
         id,
         original_text: userInput,
-        revised_text: generation,
+        revised_text: res,
         userId,
       });
+
+      const newPost: PostType = {
+        id,
+        original_text: userInput,
+        revised_text: res,
+        userId,
+        created: new Date(),
+      };
+      setPosts((prevPosts) => [...(prevPosts || []), newPost]);
+
       toast.success(`post created`, { duration: 2000 });
+      router.push("/congrats");
     } catch (error) {
       toast.error(`"Error while creating post`);
     }
-    router.push("/congrats");
   };
 
   const renderPosts = () => {
     return posts.map((post) => (
-      <div key={post.id}>
-        <PostsBoard />
+      <div key={post.id} className="pb-5">
+        <PostsBoard createdAt={post.created} revised_text={post.revised_text} />
       </div>
     ));
   };
@@ -101,7 +105,7 @@ export default function Mindshift() {
         <p className="text-[#B18E71] font-semibold">{formatDate(today)}</p>
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col gap-5 items-end"
+          className="flex flex-col gap-5 items-end pb-8"
         >
           <textarea
             className="bg-[#FFFFFF] h-[186px] w-[800px] rounded-md focus:outline-none py-2 px-5 resize-none overflow-y-auto"
@@ -111,14 +115,24 @@ export default function Mindshift() {
           />
           <button
             type="submit"
-            className="h-[56px] w-[162px] bg-[#C2A58E] text-[#614F3F] rounded-2xl text-lg font-semibold"
+            className="h-[56px] w-[162px] bg-[#C2A58E] text-[#614F3F] rounded-2xl text-lg font-semibold "
           >
             Submit
           </button>
         </form>
-        <div>response: {generation}</div>
 
-        <div>
+        <Image
+          className="pb-5 mx-auto"
+          src="/assets/Yuzu3.svg"
+          height={180}
+          width={180}
+          alt="three yellow orange"
+        />
+
+        <div className="w-full py-[45px] px-[20px] bg-[#FFFAF6] rounded-3xl">
+          <p className="text-center pb-8 font-bold text-2xl text-[#614F3F]">
+            Past Entries
+          </p>
           {posts?.length > 0 ? renderPosts() : <p>No posts available</p>}
         </div>
       </div>
