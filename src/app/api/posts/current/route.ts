@@ -24,7 +24,8 @@ export const GET = async(req: Request) => {
             $gte: todayStart,
             $lt: todayEnd,
           },
-        }).exec();
+        }).sort({ createdAt: -1 }) // Sort by createdAt in descending order
+        .exec();
         
         if(!post) return new NextResponse(JSON.stringify('Not found'), {status: 404})
         return new NextResponse(JSON.stringify(post), {status: 200})

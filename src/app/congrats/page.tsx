@@ -3,6 +3,8 @@ import { readPostFromDatabase } from "@/lib/api-controlers";
 import { Key, useEffect, useState } from "react";
 import Image from "next/image";
 import PostsBoard from "@/components/PostBoard";
+import {Passage} from "@passageidentity/passage-js";
+import Link from "next/link";
 
 type Props = {};
 
@@ -14,7 +16,10 @@ const CongratsPage = (props: Props) => {
   }, []);
 
   const fetchPost = async () => {
-    const userId = "1";
+      const passage = new Passage(process.env.PASSAGE_APP_ID || "");
+      const user = passage.getCurrentUser();
+      const userInfo = await user.userInfo();
+      const userId = userInfo?.id || ""
     try {
       const data = await readPostFromDatabase(userId);
       console.log(data);
@@ -54,8 +59,7 @@ const CongratsPage = (props: Props) => {
           alt="yellow orange"
         />
         <p className="text-[#467439] font-medium w-[450px]">
-          Hooray! Happy Day 1 of journaling! You earned a ‘Yuzu Hat’ for Capy.
-          Keep journaling to earn more rewards!
+          Hooray! Happy Day 1 of journaling! You earned a ‘Yuzu Hat’ for Capy. <Link href="/mindshift" className="underline">Keep journaling</Link> to earn more rewards!
         </p>
       </div>
 
