@@ -1,13 +1,15 @@
 "use client";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { generateResponse } from "./generate";
-import { useChat } from "ai/react";
 import {
   readPostsFromDatabase,
   savePostToDatabase,
 } from "@/lib/api-controlers";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-hot-toast";
+import PostsBoard from "@/components/PostBoard";
+import Conversation from "@/components/Conversation";
+import { useRouter } from "next/navigation";
 
 interface PostType {
   id: string;
@@ -18,10 +20,10 @@ interface PostType {
 }
 
 export default function Mindshift() {
+  const router = useRouter();
   const [generation, setGeneration] = useState("");
   const [userInput, setInput] = useState("");
-  const { messages, input, handleInputChange, handleSubmit, data } = useChat();
-  const [posts, setPosts] = useState<PostType[]>();
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   // get the userid from auth
   const userId = "1";
@@ -72,39 +74,54 @@ export default function Mindshift() {
     } catch (error) {
       toast.error(`"Error while creating post`);
     }
+    router.push("/congrats");
+  };
+
+  const renderPosts = () => {
+    return posts.map((post) => (
+      <div key={post.id}>
+        <PostsBoard />
+      </div>
+    ));
+  };
+
+  const today = new Date();
+
+  const formatDate = (date: any) => {
+    const options = { weekday: "short", month: "short", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
   };
 
   return (
-    <>
-      <form onSubmit={handleFormSubmit}>
-        <textarea value={userInput} onChange={handleUserChange} />
-        <button type="submit">Submit</button>
-      </form>
-      <div>response: {generation}</div>
+    <div className="flex flex-col gap-5 justify-center items-center py-10">
+      <h1 className="text-2xl text-[#614F3F] font-bold">CapyLog</h1>
+      <Conversation />
 
-      <div className="p-4">
-        <header className="text-center">
-          <h1 className="text-xl">Chat Example</h1>
-        </header>
-        <div className="flex flex-col justify-between w-full max-w-md mx-auto stretch">
-          <div className="flex-grow overflow-y-auto">
-            {messages.map((m) => (
-              <div key={m.id} className="whitespace-pre-wrap">
-                {m.role === "user" ? "User: " : "AI: "}
-                {m.content}
-              </div>
-            ))}
-          </div>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-              value={input}
-              placeholder="Say something..."
-              onChange={handleInputChange}
-            />
-          </form>
+      <div className="flex flex-col gap-2">
+        <p className="text-[#B18E71] font-semibold">{formatDate(today)}</p>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-5 items-end"
+        >
+          <textarea
+            className="bg-[#FFFFFF] h-[186px] w-[800px] rounded-md focus:outline-none py-2 px-5 resize-none overflow-y-auto"
+            value={userInput}
+            onChange={handleUserChange}
+            placeholder="Did you take a moment today to do something kind for yourself? Write about a small act of self-care or self-appreciation that you embraced."
+          />
+          <button
+            type="submit"
+            className="h-[56px] w-[162px] bg-[#C2A58E] text-[#614F3F] rounded-2xl text-lg font-semibold"
+          >
+            Submit
+          </button>
+        </form>
+        <div>response: {generation}</div>
+
+        <div>
+          {posts?.length > 0 ? renderPosts() : <p>No posts available</p>}
         </div>
       </div>
-    </>
+    </div>
   );
 }

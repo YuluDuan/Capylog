@@ -58,6 +58,28 @@ export async function createUser(newUser: {
   }
 
   /**
+ * Reads the current post from the database.
+ *
+ * @returns {Promise<>} The post data.
+ * @throws Will throw an error if fetching fails.
+ */
+  export async function readPostFromDatabase(userId: string) {
+    try {
+      const response = await fetch(`/api/posts/current?userId=${encodeURIComponent(userId)}`);
+      const data = await response.json();
+      
+      if (response.status !== 200) {
+        console.log(data)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  /**
  * Save a new post to the database.
  *
  * @param {PostType} newPost - The post data to save.
