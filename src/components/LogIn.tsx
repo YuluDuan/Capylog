@@ -1,17 +1,20 @@
 'use client'
 
 import {useEffect, useRef} from "react";
+import { PassageElement } from '@passageidentity/passage-elements'
+
 function Login() {
-    const ref = useRef();
+    const ref = useRef<PassageElement>(null);
 
     useEffect(()=>{
         require('@passageidentity/passage-elements/passage-login');
-        const {current} = ref;
-        current.beforeAuth = beforeAuth;
+        if (ref.current) {
+            ref.current.beforeAuth = beforeAuth;
+        }
         return () => {}
     }, []);
 
-    const beforeAuth = (email) =>{
+    const beforeAuth = (email: string) =>{
         console.log({email});
         return true;
     }

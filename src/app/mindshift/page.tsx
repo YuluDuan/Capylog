@@ -32,7 +32,7 @@ export default function Mindshift() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const passage = new Passage(process.env.PASSAGE_APP_ID);
+        const passage = new Passage(process.env.PASSAGE_APP_ID||"");
         const user = passage.getCurrentUser();
         const userInfo = await user.userInfo();
         const userId = userInfo?.id || ""
@@ -57,7 +57,7 @@ export default function Mindshift() {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //fetch from the auth
-    const passage = new Passage(process.env.PASSAGE_APP_ID);
+    const passage = new Passage(process.env.PASSAGE_APP_ID || "");
     const user = passage.getCurrentUser();
     const userInfo = await user.userInfo();
     const userId = userInfo?.id || ""
