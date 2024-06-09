@@ -4,7 +4,7 @@
   <img src="https://github.com/YuluDuan/cmd-f-hackathon/blob/main/public/assets/capy.svg?raw=true" alt="Capy" width=250/>
 </p>
 
-Welcome to **CapyLog**, a journaling application designed to reframe negative thinking into a more positive outlook. You may know someone or have caught yourself in ruminating thoughts such as, “Why are people always ignoring me?.” Instead, try rephrasing that sentence to, “Some of my coworkers don’t seem to listen when I’m speaking. I should try using a different tone when speaking with them next time.” Humans tend to give greater weight to negative information compared to positive, which can sometimes lead us to overlook its impact on our well-being. CapyLog provides an alternative perspective to one’s recollection of personal events and seeks to retrain your brain through the use of **cognitive reframing**.
+Welcome to **CapyLog**, a journaling application designed to help shape perceptions of personal events by contributing a more positive outlook. You may know someone or have caught yourself in ruminating thoughts such as, “Why are people always ignoring me?.” Instead, try rephrasing that sentence to, “Some of my coworkers don’t seem to listen when I’m speaking. I should try using a different tone when speaking with them next time.” Humans tend to give greater weight to negative information compared to positive, which can sometimes lead us to overlook its impact on our well-being. CapyLog provides an alternative perspective to one’s recollection of personal events and seeks to retrain your brain through the use of **cognitive reframing**.
 
 
 
